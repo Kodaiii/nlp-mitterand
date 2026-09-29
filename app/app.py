@@ -108,14 +108,17 @@ with gr.Blocks(
         '<div class="section-heading" lang="fr"><h2>À vous la parole.</h2>',
         js_on_load=None,
     )
-    chatbot = gr.Chatbot(
-        value=[], height=390, layout="bubble",
-        label="Conversation avec Mitterrand — simulation",
-        show_label=False, buttons=[], feedback_options=[],
-        placeholder="<strong>Et si vous posiez la question ?</strong><br>"
-                    "Économie, société, Europe… Choisissez un sujet ou écrivez le vôtre.",
-        elem_id="chatbot",
-    )
+    # Saisie et sujets au-dessus de la conversation : on écrit sans avoir à défiler sous le fil.
+    with gr.Row(elem_id="input-row"):
+        message_input = gr.Textbox(
+            placeholder="Votre question pour François Mitterrand…",
+            label="Votre message", show_label=False,
+            lines=2, max_lines=5, elem_id="message-input", scale=8,
+        )
+        send_button = gr.Button(
+            "Envoyer ↗", variant="primary", elem_id="send-button", scale=1, min_width=140,
+        )
+
     gr.Markdown("POUR OUVRIR LE DÉBAT", elem_id="topics-label")
     topics = [
         ("Emploi", "Quelle politique proposez-vous contre le chômage ?"),
@@ -126,15 +129,14 @@ with gr.Blocks(
     with gr.Row(elem_id="topics"):
         topic_buttons = [gr.Button(label, size="sm", min_width=120) for label, _ in topics]
 
-    with gr.Row(elem_id="input-row"):
-        message_input = gr.Textbox(
-            placeholder="Votre question pour François Mitterrand…",
-            label="Votre message", show_label=False,
-            lines=2, max_lines=5, elem_id="message-input", scale=8,
-        )
-        send_button = gr.Button(
-            "Envoyer ↗", variant="primary", elem_id="send-button", scale=1, min_width=140,
-        )
+    chatbot = gr.Chatbot(
+        value=[], height=390, layout="bubble",
+        label="Conversation avec Mitterrand — simulation",
+        show_label=False, buttons=[], feedback_options=[],
+        placeholder="<strong>Et si vous posiez la question ?</strong><br>"
+                    "Économie, société, Europe… Choisissez un sujet ou écrivez le vôtre.",
+        elem_id="chatbot",
+    )
 
     with gr.Row(elem_id="conversation-tools"):
         clear_button = gr.Button(
