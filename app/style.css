@@ -1,201 +1,125 @@
-/* ============================================================
-   PAGE
-   ============================================================ */
-
+/* Affiche politique : papier gris, encre noire et accents pop. */
 .gradio-container {
-
-    max-width: 1100px !important;
-
-    margin: auto !important;
-
-    padding: 30px !important;
-
-    background-color: #f5f2ea;
-
-    font-family: Georgia, "Times New Roman", serif;
+    --paper: #eeeeea;
+    --surface: #fafaf8;
+    --ink: #191919;
+    --muted: #595955;
+    --blue: #154bff;
+    --body-background-fill: var(--paper);
+    --body-text-color: var(--ink);
+    --body-text-color-subdued: var(--muted);
+    --background-fill-primary: var(--surface);
+    --background-fill-secondary: #e5e5e0;
+    --block-background-fill: var(--surface);
+    --block-border-color: #b8b8b1;
+    --block-label-text-color: var(--ink);
+    --block-title-text-color: var(--ink);
+    --input-background-fill: var(--surface);
+    --input-text-color: var(--ink);
+    --input-placeholder-color: var(--muted);
+    --border-color-primary: #b8b8b1;
+    --border-color-accent: var(--ink);
+    --link-text-color: #1640c9;
+    --body-text-size: 16px;
+    font-family: Arial, Helvetica, sans-serif !important;
+    color: var(--ink) !important;
+    background: var(--paper) !important;
+    max-width: 1120px !important;
+    margin: 0 auto !important;
+    padding: 32px 40px 24px !important;
+    color-scheme: light;
 }
-
-
-/* ============================================================
-   TITRE
-   ============================================================ */
-
-#header {
-
-    text-align: center;
-
-    padding: 25px;
-
-    margin-bottom: 20px;
+body, .dark { background: #eeeeea !important; }
+.gradio-container .gap { gap: 14px; }
+#header { border-bottom: 3px solid var(--ink); padding-bottom: 22px; }
+.masthead { display: flex; align-items: center; gap: 26px; }
+.masthead-copy { flex: 1; min-width: 0; }
+.eyebrow, .portrait figcaption, .section-heading > span,
+#topics-label p, .page-footer {
+    font: 11px/1.5 "Courier New", monospace;
+    letter-spacing: 1.4px;
 }
-
-
-/* Titre principal */
-
-#header h1 {
-
-    font-size: 2.5rem;
-
-    margin-bottom: 5px;
+.eyebrow { margin: 0 0 24px; }
+.masthead h1 {
+    margin: 0;
+    font-family: Impact, "Arial Narrow", Arial, sans-serif;
+    font-size: clamp(38px, 5.3vw, 66px);
+    font-weight: 900;
+    letter-spacing: -1.8px;
+    line-height: 1.05;
 }
-
-
-/* Sous-titre */
-
-#header h3 {
-
-    font-weight: normal;
-
-    opacity: 0.7;
+.given-name { display: block; font: italic 26px/1.4 Georgia, serif; letter-spacing: 0; }
+.year {
+    display: inline-block;
+    vertical-align: middle;
+    padding: 5px 9px;
+    background: #f5cc43;
+    border: 1px solid var(--ink);
+    font: bold 23px/1 "Courier New", monospace;
+    letter-spacing: -1px;
+    transform: rotate(-5deg);
 }
-
-
-/* ============================================================
-   BLOC D'INFORMATION
-   ============================================================ */
-
-#information {
-
-    background-color: white;
-
-    padding: 20px;
-
-    margin-bottom: 20px;
-
-    border: 1px solid #d5d0c5;
-
-    border-radius: 12px;
-
-    line-height: 1.6;
-}
-
-
-/* ============================================================
-   CHAT
-   ============================================================ */
-
-#chatbot {
-
-    background-color: white;
-
-    border: 1px solid #d5d0c5;
-
-    border-radius: 12px;
-
-    overflow: hidden;
-}
-
-
-/* ============================================================
-   ZONE DE SAISIE
-   ============================================================ */
-
-#input-row {
-
-    margin-top: 15px;
-
-    align-items: stretch;
-}
-
-
-/* Textbox */
-
-#message-input {
-
-    border-radius: 10px;
-}
-
-
-#message-input textarea {
-
-    font-size: 16px !important;
-
-    line-height: 1.5 !important;
-
-    padding: 12px !important;
-}
-
-
-/* ============================================================
-   BOUTON ENVOYER
-   ============================================================ */
-
-#send-button {
-
-    min-width: 120px;
-
-    border-radius: 10px;
-
-    font-weight: bold;
-
-    cursor: pointer;
-}
-
-
-/* ============================================================
-   BOUTON RESET
-   ============================================================ */
-
-#clear-button {
-
-    margin-top: 10px;
-
-    border-radius: 10px;
-
-    cursor: pointer;
-}
-
-
-/* ============================================================
-   EFFETS AU SURVOL
-   ============================================================ */
-
-#send-button:hover,
-#clear-button:hover {
-
-    transform: translateY(-1px);
-
-    transition: 0.15s;
-}
-
-
-/* ============================================================
-   VERSION MOBILE
-   ============================================================ */
-
+.tagline { margin: 19px 0 12px; font: 24px/1.35 Georgia, serif; }
+.tagline span { text-decoration: underline; text-decoration-color: #f26b98; text-decoration-thickness: 5px; text-underline-offset: 5px; }
+.intro { font-size: 14px; line-height: 1.6; color: var(--muted); }
+.portrait { flex: 0 0 245px; margin: 0; text-align: center; }
+.portrait img { width: 100%; height: auto; aspect-ratio: 1; object-fit: contain; }
+.portrait figcaption { font-size: 9px; margin-top: 6px; color: var(--muted); }
+.portrait-static { display: none; }
+#information { padding: 13px 16px; border-left: 3px solid var(--ink); background: #e0e0da; }
+#information p { font-size: 13px; line-height: 1.65; color: var(--ink); }
+#context { border: 0; border-bottom: 1px solid #b8b8b1; border-radius: 0; background: transparent; box-shadow: none; }
+#context button { color: var(--ink); font-size: 13px; }
+#context .prose { color: var(--muted); font-size: 14px; }
+.section-heading { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; margin: 15px 0 2px; }
+.section-heading h2 { font: bold 28px/1.2 Georgia, serif; margin: 0; }
+.section-heading > span { color: var(--muted); white-space: nowrap; }
+#chatbot { background: var(--surface); border: 1px solid var(--ink); border-radius: 2px; box-shadow: 4px 4px 0 #cecec7; }
+#chatbot .message { font: 16px/1.7 Arial, sans-serif; border-radius: 3px; color: var(--ink); }
+#chatbot .message.user { background: #e4e4df; border: 1px solid #cecec7; }
+#chatbot .message.bot { background: var(--surface); }
+#chatbot .placeholder { color: var(--muted); text-align: center; padding: 24px; line-height: 1.8; }
+#chatbot .placeholder strong { display: inline-block; font: 25px/1.4 Georgia, serif; margin-bottom: 12px; color: var(--ink); }
+#topics-label p { margin-top: 9px; color: var(--muted); }
+#topics { gap: 8px; }
+#topics button { background: transparent; border: 1px solid #96968f; border-radius: 2px; color: var(--ink); font: 13px/1.4 Arial, sans-serif; padding: 10px 16px; box-shadow: none; }
+#topics button:hover { background: #deded7; border-color: var(--ink); }
+#input-row { align-items: stretch; gap: 12px; margin-top: 7px; }
+#message-input { background: var(--surface); border: 1px solid var(--ink); border-radius: 2px; box-shadow: none; }
+#message-input textarea { background: var(--surface); color: var(--ink); font: 16px/1.6 Arial, sans-serif; padding: 15px !important; }
+#send-button { min-width: 140px; background: var(--blue); color: white; border: 1px solid var(--ink); border-radius: 2px; font: bold 16px/1.4 Arial, sans-serif; box-shadow: 3px 3px 0 var(--ink); transition: transform 120ms, box-shadow 120ms; }
+#send-button:hover { background: #103ed6; transform: translate(-1px, -1px); box-shadow: 4px 4px 0 var(--ink); }
+#send-button:active { transform: translate(2px, 2px); box-shadow: none; }
+#conversation-tools { align-items: center; gap: 12px; }
+#input-hint p { color: var(--muted); font: italic 12px/1.5 Georgia, serif; }
+#clear-button { background: transparent; color: var(--muted); border: 0; border-radius: 2px; box-shadow: none; text-decoration: underline; text-underline-offset: 3px; font-size: 12px; }
+#clear-button:hover { color: var(--ink); background: #deded7; }
+.gradio-container button:focus-visible, .gradio-container a:focus-visible,
+#message-input:focus-within { outline: 3px solid var(--blue); outline-offset: 3px; }
+.page-footer { display: flex; justify-content: space-between; gap: 16px; border-top: 1px solid var(--ink); padding-top: 18px; margin-top: 22px; color: var(--muted); font-size: 10px; letter-spacing: .7px; }
 @media (max-width: 700px) {
-
-    .gradio-container {
-
-        padding: 10px !important;
-    }
-
-
-    #header h1 {
-
-        font-size: 1.8rem;
-    }
+    .gradio-container { padding: 20px 16px !important; }
+    .masthead { gap: 12px; }
+    .portrait { flex-basis: 130px; }
+    .portrait figcaption { display: none; }
+    .masthead h1 { font-size: clamp(27px, 6vw, 42px); letter-spacing: -1px; overflow-wrap: anywhere; }
+    .eyebrow { font-size: 9px; letter-spacing: .6px; margin-bottom: 16px; }
+    .given-name { font-size: 21px; }
+    .year { font-size: 18px; margin-top: 8px; }
+    .tagline { font-size: 20px; }
+    .intro { font-size: 12px; }
+    .section-heading > span { font-size: 9px; letter-spacing: .5px; }
+    .section-heading h2 { font-size: 24px; }
+    #chatbot { height: 340px !important; }
+    #send-button { min-height: 52px; }
+    .page-footer { flex-direction: column; gap: 5px; }
 }
-
-
-/* ============================================================
-   AJOUTE TES MODIFICATIONS PERSONNELLES ICI
-   ============================================================ */
-
-/*
-
-Exemple :
-
-#header h1 {
-    color: #8b0000;
+@media (max-width: 420px) {
+    .portrait { flex-basis: 90px; }
+    .section-heading > span { display: none; }
 }
-
-#chatbot {
-    box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.10);
+@media (prefers-reduced-motion: reduce) {
+    .portrait-animated { display: none; }
+    .portrait-static { display: block; }
+    #send-button { transition: none; }
 }
-
-.gradio-container {
-    background-color: #eee8d8;
-}
-
-*/
