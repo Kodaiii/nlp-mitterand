@@ -3,7 +3,7 @@ MITTERRAND 1981 — UNE CONVERSATION AVEC L’HISTOIRE
 Agent conversationnel historique en français. Point d’entrée : agent.ipynb.
 
 STRUCTURE
-agent.ipynb             Installation, données, QLoRA, comparaison et Gradio.
+agent.ipynb             Observation du modèle, baseline, QLoRA, évaluation et Gradio.
 app/app.py             Composants et interactions de l’interface.
 app/style.css          Style de l’interface.
 assets/                Portraits fixes et animés.
@@ -23,12 +23,20 @@ EXÉCUTION DU NOTEBOOK
      Placer les fichiers directement dans Mon Drive/mitterrand-qlora/ :
      adapter_config.json, adapter_model.safetensors et les fichiers du
      tokenizer/processor, dont chat_template.jinja. Ne pas ajouter de
-     sous-dossier adapter. Drive est monté automatiquement en section 13.
+     sous-dossier adapter. Drive est monté automatiquement en section 14.
      Autoriser la connexion à Drive lorsque Colab le demande.
 6. Vérifier REPO_BRANCH : dataset-qlora-mitterrand, ou main après fusion.
-7. Exécuter les cellules dans l’ordre. L’interface Gradio s’affiche en
-   section 14. La section 15 (fusion/publication) est facultative et ses
-   options restent désactivées par défaut.
+7. Exécuter les cellules dans l’ordre. Le modèle de base est chargé en
+   section 4, observé en section 5 et comparé à trois prompts en section 6
+   (baseline). La section 15 évalue la baseline et le modèle adapté.
+   L’interface Gradio s’affiche en section 16. La section 17
+   (fusion/publication) est facultative et ses options restent désactivées
+   par défaut.
+
+Les résultats de la baseline et de l’évaluation sont enregistrés dans
+Mon Drive/mitterrand-eval/ (RESULTS_DIR), ou dans evaluation/ hors de Colab :
+baseline_reference.json, reponses.json et grille.csv. Les réponses déjà
+générées sont relues à la session suivante au lieu d’être régénérées.
 
 Dans Colab, le code et les ressources du projet sont clonés automatiquement.
 L’adaptateur est chargé séparément depuis Drive. En local,
@@ -59,7 +67,13 @@ Pour reconstruire les JSONL depuis data/sources/ :
     python scripts/build_dataset.py
 
 REMISE
-Exécuter agent.ipynb avant la remise. L’évaluation complète (section 6 du
-sujet), rapport.pdf (4 pages maximum hors annexes) et le lien stable vers
-l’adaptateur pour la remise restent à préparer. Les cinq comparaisons existantes sont
-conservées dans le notebook.
+1. Exécuter agent.ipynb jusqu’à la section 15 : elle génère les réponses
+   des deux modèles et crée grille.csv dans RESULTS_DIR.
+2. Noter grille.csv à la main (0, 1 ou 2 par critère, NA déjà rempli quand
+   le critère ne s’applique pas), l’enregistrer au même emplacement, puis
+   relancer les cellules de synthèse de la section 15.
+3. Rédiger au moins cinq réussites ou erreurs commentées (fin de la
+   section 15), puis exécuter le notebook jusqu’à l’interface.
+4. Joindre au rendu le contenu de RESULTS_DIR (dossier evaluation/).
+Restent à préparer : rapport.pdf (4 pages maximum hors annexes) et le
+lien stable vers l’adaptateur.
