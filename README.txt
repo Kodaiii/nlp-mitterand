@@ -1,6 +1,7 @@
 MITTERRAND 1981 — UNE CONVERSATION AVEC L’HISTOIRE
 
-Agent conversationnel historique en français. Point d’entrée : agent.ipynb.
+Agent conversationnel historique en français réaliser dans le cadre du cours de NLP.
+Point d’entrée : agent.ipynb.
 
 STRUCTURE
 agent.ipynb             Observation du modèle, baseline, QLoRA, évaluation et Gradio.
