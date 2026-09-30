@@ -7,7 +7,6 @@ agent.ipynb             Observation du modèle, baseline, QLoRA, évaluation et 
 app/app.py             Composants et interactions de l’interface.
 app/style.css          Style de l’interface.
 assets/                Portraits fixes et animés.
-adapter/               Copie locale de l’adaptateur ; inference depuis Drive.
 data/                  Dialogues, splits, prompt et documentation détaillée.
 scripts/build_dataset.py  Reconstruction reproductible des données.
 
@@ -25,7 +24,7 @@ EXÉCUTION DU NOTEBOOK
      tokenizer/processor, dont chat_template.jinja. Ne pas ajouter de
      sous-dossier adapter. Drive est monté automatiquement en section 14.
      Autoriser la connexion à Drive lorsque Colab le demande.
-6. Vérifier REPO_BRANCH : dataset-qlora-mitterrand, ou main après fusion.
+6. Vérifier REPO_BRANCH : main.
 7. Exécuter les cellules dans l’ordre. Le modèle de base est chargé en
    section 4, observé en section 5 et comparé à trois prompts en section 6
    (baseline). La section 15 évalue la baseline et le modèle adapté.
