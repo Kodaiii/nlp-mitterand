@@ -68,7 +68,7 @@ Le script valide l'alternance des rôles, rejette les doublons et le markdown, p
 
 ## Charger pour l'entraînement
 
-Le notebook Colab [`notebooks/qlora_gemma4_12b_mitterrand.ipynb`](../notebooks/qlora_gemma4_12b_mitterrand.ipynb) fait tout le QLoRA sur `google/gemma-4-12B-it` : chargement 4 bits, masquage de la perte sur les seules réponses, entraînement, comparaison avant/après et sauvegarde. Ensuite, [`notebooks/chat_mitterrand.ipynb`](../notebooks/chat_mitterrand.ipynb) recharge l'adaptateur depuis Drive pour discuter avec le modèle, sans réentraîner. Les deux notebooks tournent dans Colab, ou depuis VS Code avec l'extension officielle Google Colab. Pour un autre outil :
+Le notebook Colab [`agent.ipynb`](../agent.ipynb) regroupe le QLoRA sur `google/gemma-4-12B-it` (chargement 4 bits, masquage de la perte sur les seules r?ponses, entraînement, comparaison avant/après et sauvegarde) et l'interface Gradio. Avec `RUN_TRAINING = False`, il recharge directement l'adaptateur depuis Drive ou Hugging Face, sans réentraîner. Il peut être ouvert dans Colab ou depuis VS Code avec l'extension officielle Google Colab ; pour afficher Gradio, utiliser Colab dans le navigateur. Pour un autre outil :
 
 ```python
 from datasets import load_dataset
