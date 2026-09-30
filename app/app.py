@@ -7,6 +7,9 @@ APP_DIR = Path(__file__).resolve().parent
 ASSETS_DIR = APP_DIR.parent / "assets"
 MAX_HISTORY_TURNS = 5
 
+# Fonction respond(question, history) -> str fournie par launch_app ; None = mode démonstration.
+_respond = None
+
 SYSTEM_PROMPT = """
 Tu es une simulation historique à vocation pédagogique,
 inspirée du registre public de François Mitterrand autour de 1981.
@@ -24,6 +27,13 @@ def limit_history(history):
     return history[-MAX_HISTORY_TURNS * 2:] if history else []
 
 
+def message_text(content):
+    """Texte d'un message : Gradio 6 renvoie une liste de blocs, les messages ajoutés ici sont des chaînes."""
+    if isinstance(content, str):
+        return content
+    return "".join(block.get("text", "") for block in content if block.get("type") == "text")
+
+
 def add_user_message(message, history):
     if not message or not message.strip():
         return "", history or []
@@ -31,15 +41,23 @@ def add_user_message(message, history):
 
 
 def generate_response(history):
-    """Réponse provisoire, à remplacer par l'appel à Gemma + LoRA."""
+    """Réponse du modèle branché par launch_app(respond=...), ou message de démonstration."""
     if not history or history[-1]["role"] != "user":
         return history
-    answer = (
-        "Mode démonstration — aucun modèle n'est encore chargé.\n\n"
-        f"Vous avez demandé : « {history[-1]['content']} »\n\n"
-        "La réponse de la simulation historique apparaîtra ici lorsque "
-        "le modèle sera intégré."
-    )
+    question = message_text(history[-1]["content"])
+    if _respond is None:
+        answer = (
+            "Mode démonstration — aucun modèle n'est encore chargé.\n\n"
+            f"Vous avez demandé : « {question} »\n\n"
+            "La réponse de la simulation historique apparaîtra ici lorsque "
+            "le modèle sera intégré."
+        )
+    else:
+        previous = [
+            {"role": message["role"], "content": message_text(message["content"])}
+            for message in limit_history(history[:-1])
+        ]
+        answer = _respond(question, previous)
     return [*history, {"role": "assistant", "content": answer}]
 
 
@@ -90,14 +108,17 @@ with gr.Blocks(
         '<div class="section-heading" lang="fr"><h2>À vous la parole.</h2>',
         js_on_load=None,
     )
-    chatbot = gr.Chatbot(
-        value=[], height=390, layout="bubble",
-        label="Conversation avec Mitterrand — simulation",
-        show_label=False, buttons=[], feedback_options=[],
-        placeholder="<strong>Et si vous posiez la question ?</strong><br>"
-                    "Économie, société, Europe… Choisissez un sujet ou écrivez le vôtre.",
-        elem_id="chatbot",
-    )
+    # Saisie et sujets au-dessus de la conversation : on écrit sans avoir à défiler sous le fil.
+    with gr.Row(elem_id="input-row"):
+        message_input = gr.Textbox(
+            placeholder="Votre question pour François Mitterrand…",
+            label="Votre message", show_label=False,
+            lines=2, max_lines=5, elem_id="message-input", scale=8,
+        )
+        send_button = gr.Button(
+            "Envoyer ↗", variant="primary", elem_id="send-button", scale=1, min_width=140,
+        )
+
     gr.Markdown("POUR OUVRIR LE DÉBAT", elem_id="topics-label")
     topics = [
         ("Emploi", "Quelle politique proposez-vous contre le chômage ?"),
@@ -108,15 +129,14 @@ with gr.Blocks(
     with gr.Row(elem_id="topics"):
         topic_buttons = [gr.Button(label, size="sm", min_width=120) for label, _ in topics]
 
-    with gr.Row(elem_id="input-row"):
-        message_input = gr.Textbox(
-            placeholder="Votre question pour François Mitterrand…",
-            label="Votre message", show_label=False,
-            lines=2, max_lines=5, elem_id="message-input", scale=8,
-        )
-        send_button = gr.Button(
-            "Envoyer ↗", variant="primary", elem_id="send-button", scale=1, min_width=140,
-        )
+    chatbot = gr.Chatbot(
+        value=[], height=390, layout="bubble",
+        label="Conversation avec Mitterrand — simulation",
+        show_label=False, buttons=[], feedback_options=[],
+        placeholder="<strong>Et si vous posiez la question ?</strong><br>"
+                    "Économie, société, Europe… Choisissez un sujet ou écrivez le vôtre.",
+        elem_id="chatbot",
+    )
 
     with gr.Row(elem_id="conversation-tools"):
         clear_button = gr.Button(
@@ -141,10 +161,18 @@ with gr.Blocks(
     clear_button.click(fn=reset_chat, outputs=[chatbot, message_input], queue=False)
 
 
-def launch_app(**kwargs):
-    """Lance l'interface stylisée depuis un script ou un notebook (Gradio 6)."""
+def launch_app(respond=None, **kwargs):
+    """Lance l'interface stylisée depuis un script ou un notebook (Gradio 6).
+
+    respond(question, history) -> str interroge le modèle ; history contient les derniers
+    échanges au format [{"role": ..., "content": str}]. Sans respond, l'app reste en démonstration.
+    """
+    global _respond
+    _respond = respond
     kwargs.setdefault("css_paths", str(APP_DIR / "style.css"))
     kwargs.setdefault("footer_links", [])
+    # Dans Colab, Gradio créerait sinon un lien public gradio.live : sans lui, l'app s'affiche sous la cellule.
+    kwargs.setdefault("share", False)
     demo.queue()
     return demo.launch(**kwargs)
 
