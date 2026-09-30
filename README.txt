@@ -29,9 +29,7 @@ EXÉCUTION DU NOTEBOOK
 7. Exécuter les cellules dans l’ordre. Le modèle de base est chargé en
    section 4, observé en section 5 et comparé à trois prompts en section 6
    (baseline). La section 15 évalue la baseline et le modèle adapté.
-   L’interface Gradio s’affiche en section 16. La section 17
-   (fusion/publication) est facultative et ses options restent désactivées
-   par défaut.
+   L’interface Gradio s’affiche en section 16.
 
 Les résultats de la baseline et de l’évaluation sont enregistrés dans
 Mon Drive/mitterrand-eval/ (RESULTS_DIR), ou dans evaluation/ hors de Colab :
