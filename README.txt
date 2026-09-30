@@ -1,5 +1,7 @@
 MITTERRAND 1981 — UNE CONVERSATION AVEC L’HISTOIRE
 
+https://raw.githubusercontent.com/Kodaiii/nlp-mitterand/main/assets/animated.gif
+
 Agent conversationnel historique en français réaliser dans le cadre du cours de NLP.
 Point d’entrée : agent.ipynb.
 
