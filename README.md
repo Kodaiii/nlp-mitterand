@@ -1,6 +1,6 @@
 # MITTERRAND 1981 — UNE CONVERSATION AVEC L’HISTOIRE
 
-![Animation](assets/animated.gif)
+![Animation](assets/animated_small.gif)
 
 Agent conversationnel historique en français réaliser dans le cadre du cours de NLP.
 Point d’entrée : [agent.ipynb](agent.ipynb).
