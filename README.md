@@ -85,17 +85,3 @@ Pour reconstruire les JSONL depuis `data/sources/` :
 ```bash
 python scripts/build_dataset.py
 ```
-
-## Remise
-
-1. Exécuter `agent.ipynb` jusqu’à la section 15 : elle génère les réponses
-   des deux modèles et crée `grille.csv` dans `RESULTS_DIR`.
-2. Noter `grille.csv` à la main (0, 1 ou 2 par critère, `NA` déjà rempli quand
-   le critère ne s’applique pas), l’enregistrer au même emplacement, puis
-   relancer les cellules de synthèse de la section 15.
-3. Rédiger au moins cinq réussites ou erreurs commentées (fin de la
-   section 15), puis exécuter le notebook jusqu’à l’interface.
-4. Joindre au rendu le contenu de `RESULTS_DIR` (dossier `evaluation/`).
-
-Restent à préparer : `rapport.pdf` (4 pages maximum hors annexes) et le
-lien stable vers l’adaptateur.
